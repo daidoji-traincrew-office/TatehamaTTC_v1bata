@@ -41,51 +41,8 @@ namespace TatehamaTTC_v1bata.Network
         public Network(OpenIddictClientService service)
         {
             _service = service;
-            StartUpdateLoop();
             previousStatus = false;
             connectErrorDialog = false;
-        }
-
-        public void StartUpdateLoop()
-        {
-            Task.Run(async () =>
-            {
-                while (true)
-                {
-                    try
-                    {
-                        await UpdateLoop();
-                    }
-                    catch (Exception ex)
-                    {
-                    }
-                }
-            });
-        }
-
-        /// <summary>
-        /// 定常ループ
-        /// </summary>
-        /// <returns></returns>
-        private async Task UpdateLoop()
-        {
-            while (true)
-            {
-                var timer = Task.Delay(100);
-                await timer;
-                try
-                {
-                    if (!connected)
-                    {
-                        continue;
-                    }
-
-                    await SendData_to_Server();
-                }
-                catch (Exception ex)
-                {
-                }
-            }
         }
 
         /// <summary>
@@ -366,7 +323,7 @@ namespace TatehamaTTC_v1bata.Network
             }
 
             _connection = new HubConnectionBuilder()
-                .WithUrl($"{ServerAddress.SignalAddress}/hub/train?access_token={_token}")
+                .WithUrl($"{ServerAddress.SignalAddress}/hub/CTCP?access_token={_token}")
                 .Build();
             _eventHandlersSet = false;
         }
