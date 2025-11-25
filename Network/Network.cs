@@ -457,23 +457,6 @@ namespace TatehamaTTC_v1bata.Network
             return result;
         }
 
-        /// <summary>
-        /// 文字列に不正な文字が含まれているか判定する
-        /// </summary>
-        public static bool HasInvalidChars(string input)
-        {
-            foreach (char c in input)
-            {
-                // 制御文字（改行・タブを除く）またはU+FFFD（�）が含まれていたら文字化け
-                if ((char.IsControl(c) && c != '\r' && c != '\n' && c != '\t') || c == '\uFFFD')
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         private void OnReceiveDataFromServer(DataFromServer data)
         {
             if (data == null)
