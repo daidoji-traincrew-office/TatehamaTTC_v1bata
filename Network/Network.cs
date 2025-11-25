@@ -383,6 +383,8 @@ namespace TatehamaTTC_v1bata.Network
                 return; // イベントハンドラは一度だけ設定する
             }
 
+            _connection.On<DataFromServer>("ReceiveData", OnReceiveDataFromServer);
+
             _connection.Closed += async (error) =>
             {
                 Debug.WriteLine($"SignalR disconnected");
@@ -472,25 +474,21 @@ namespace TatehamaTTC_v1bata.Network
             return false;
         }
 
-        //DataFromServer dataFromServer;
-        //dataFromServer = await _connection.InvokeAsync<DataFromServer>("SendData_ATS", SendData);
-
-
-        public async Task()
+        private void OnReceiveDataFromServer(DataFromServer data)
         {
-            if (_connection == null)
+            if (data == null)
             {
-                throw new InvalidOperationException("_connection is not initialized.");
+                Debug.WriteLine("Failed to receive Data.");
+                return;
             }
-            try
-            {
-                DataFromServer = await _connection.InvokeAsync<DataFromServer>("SendData_ATS");
-                // 受信データの処理をここに追加
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error sending data to server: {ex.Message}");
-            }
+
+            Debug.WriteLine(data);
+        }
+
+
+        public async Task SetCtcRelay(string TcName, RaiseDrop raiseDrop)
+        {
+            RouteData newRouteData = await _connection?.InvokeAsync<RouteData>("SetCtcRelay", TcName, raiseDrop);
         }
 
         //await _connection.InvokeAsync<DataFromServer>("DriverGetsOff", OverrideDiaName);
