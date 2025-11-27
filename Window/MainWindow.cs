@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TatehamaTTC_v1bata.Manager;
+using TatehamaTTC_v1bata.Model;
 
 namespace TatehamaTTC_v1bata.Window
 {
@@ -39,6 +40,16 @@ namespace TatehamaTTC_v1bata.Window
             //TTCManager.Exit();
             //ApplicationExitイベントハンドラを削除
             Application.ApplicationExit -= new EventHandler(Application_ApplicationExit);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            TTCManager.SetCtcRelay(textBox1.Text, RaiseDrop.Raise);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            TTCManager.SetCtcRelay(textBox1.Text, RaiseDrop.Drop);
         }
     }
 }

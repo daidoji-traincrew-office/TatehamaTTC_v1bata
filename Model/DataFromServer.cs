@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
+using System.Xml.Linq;
+using static System.Windows.Forms.AxHost;
 
 namespace TatehamaTTC_v1bata.Model
 {
@@ -35,6 +39,33 @@ namespace TatehamaTTC_v1bata.Model
         /// 表示灯情報リスト
         /// </summary>
         public Dictionary<string, bool> Lamps { get; set; }
+
+
+        public override string ToString()
+        {
+            var str = "";
+            str += "CenterControlStates：\n";
+            foreach (var state in CenterControlStates)
+            {
+                str += $"　　{(state.Value == CenterControlState.CenterControl ? "●" : "○")}{state.Key}\n";
+            }
+
+            str += "RouteDatas：\n";
+            foreach (var route in RouteDatas)
+            {
+                if (route.RouteState.IsCtcRelayRaised == RaiseDrop.Raise)
+                    str += $"　　{(route.RouteState.IsCtcRelayRaised == RaiseDrop.Raise ? "●" : "○")}{(route.RouteState.IsLeverRelayRaised == RaiseDrop.Raise ? "●" : "○")}{route.TcName}\n";
+            }
+
+            str += "TrackCircuits：\n";
+            foreach (var track in TrackCircuits)
+            {
+                if (track.On)
+                    str += track.ToString();
+            }
+
+            return str;
+        }
     }
 
     public enum CenterControlState
@@ -52,6 +83,11 @@ namespace TatehamaTTC_v1bata.Model
         public string? Indicator { get; set; }
         public int? ApproachLockTime { get; set; }
         public RouteStateData? RouteState { get; set; }
+        public override string ToString()
+        {
+
+            return $"　　{(RouteState.IsCtcRelayRaised == RaiseDrop.Raise ? "●" : "○")}{TcName}\n";
+        }
     }
 
     public class RouteStateData

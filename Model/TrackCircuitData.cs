@@ -15,7 +15,7 @@ namespace TatehamaTTC_v1bata.Model
 
         public override string ToString()
         {
-            return $"{Name}/{Last}/{On}";
+            return $"　　{(On ? "●" : "○")}{Name},{Last}\n";
         }
 
         public bool Equals(TrackCircuitData? other)
