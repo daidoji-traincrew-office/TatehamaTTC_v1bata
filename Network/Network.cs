@@ -34,6 +34,8 @@ namespace TatehamaTTC_v1bata.Network
         /// </summary>
         private DataFromServer DataFromServer;
 
+        public event Action<DataFromServer, DataFromServer>? DataFromServerReceived;
+
         private bool previousStatus { get; set; }
         private bool connectErrorDialog { get; set; } = false;
         private bool previousDriveStatus { get; set; }
@@ -43,6 +45,14 @@ namespace TatehamaTTC_v1bata.Network
             _service = service;
             previousStatus = false;
             connectErrorDialog = false;
+            DataFromServer = new DataFromServer()
+            {
+                CenterControlStates = new(),
+                Lamps = new(),
+                Retsubans = [],
+                RouteDatas = [],
+                TrackCircuits = []
+            };
         }
 
         /// <summary>
@@ -422,13 +432,26 @@ namespace TatehamaTTC_v1bata.Network
                 return;
             }
 
-            Debug.WriteLine(data);
+
+            var difference = DataFromServer.GetUpdatedData(data);
+            DataFromServer = data;
+            DataFromServerReceived?.Invoke(DataFromServer, difference);
         }
 
 
         public async Task SetCtcRelay(string TcName, RaiseDrop raiseDrop)
         {
             RouteData newRouteData = await _connection?.InvokeAsync<RouteData>("SetCtcRelay", TcName, raiseDrop);
+            // 更新されたRouteDataを受け取る
+            for (int i = 0; i < DataFromServer.RouteDatas.Count; i++)
+            {
+                if (DataFromServer.RouteDatas[i].TcName == newRouteData.TcName)
+                {
+                    DataFromServer.RouteDatas[i] = newRouteData;
+                    break;
+                }
+            }
+            DataFromServerReceived?.Invoke(DataFromServer, new() { RouteDatas = [newRouteData] });
         }
 
         //await _connection.InvokeAsync<DataFromServer>("DriverGetsOff", OverrideDiaName);

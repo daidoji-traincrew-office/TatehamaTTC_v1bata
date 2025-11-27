@@ -44,27 +44,99 @@ namespace TatehamaTTC_v1bata.Model
         public override string ToString()
         {
             var str = "";
+
+            // CenterControlStates
             str += "CenterControlStates：\n";
-            foreach (var state in CenterControlStates)
+            if (CenterControlStates != null && CenterControlStates.Any())
             {
-                str += $"　　{(state.Value == CenterControlState.CenterControl ? "●" : "○")}{state.Key}\n";
+                foreach (var state in CenterControlStates)
+                {
+                    str += $"　　{(state.Value == CenterControlState.CenterControl ? "●" : "○")}{state.Key}\n";
+                }
+            }
+            else
+            {
+                str += "　　データなし\n";
             }
 
+            // RouteDatas
             str += "RouteDatas：\n";
-            foreach (var route in RouteDatas)
+            if (RouteDatas != null && RouteDatas.Any())
             {
-                if (route.RouteState.IsCtcRelayRaised == RaiseDrop.Raise)
-                    str += $"　　{(route.RouteState.IsCtcRelayRaised == RaiseDrop.Raise ? "●" : "○")}{(route.RouteState.IsLeverRelayRaised == RaiseDrop.Raise ? "●" : "○")}{route.TcName}\n";
+                foreach (var route in RouteDatas)
+                {
+                    str += $"　　{(route.RouteState.IsCtcRelayRaised == RaiseDrop.Raise ? "●" : "○")}{(route.RouteState.IsLeverRelayRaised == RaiseDrop.Raise ? "●" : "○")}{(route.RouteState.IsSignalControlRaised == RaiseDrop.Raise ? "●" : "○")}{route.TcName}\n";
+                }
+            }
+            else
+            {
+                str += "　　データなし\n";
             }
 
+            // TrackCircuits
             str += "TrackCircuits：\n";
-            foreach (var track in TrackCircuits)
+            if (TrackCircuits != null && TrackCircuits.Any())
             {
-                if (track.On)
+                foreach (var track in TrackCircuits)
+                {
                     str += track.ToString();
+                }
+            }
+            else
+            {
+                str += "　　データなし\n";
             }
 
             return str;
+        }
+
+        public DataFromServer GetUpdatedData(DataFromServer other)
+        {
+            if (other == null)
+            {
+                throw new ArgumentNullException(nameof(other));
+            }
+
+            return new DataFromServer
+            {
+                // TrackCircuits: 更新されたデータのみを残す
+                TrackCircuits = other.TrackCircuits
+                    .Where(tc => !this.TrackCircuits.Any(o => o.Name == tc.Name && o.Equals(tc)))
+                    .ToList(),
+
+                // RouteDatas: 更新されたデータのみを残す
+                RouteDatas = other.RouteDatas
+                    .Where(rd => !this.RouteDatas.Any(o =>
+                        o.TcName == rd.TcName &&
+                        o.RouteState?.IsCtcRelayRaised == rd.RouteState?.IsCtcRelayRaised &&
+                        o.RouteState?.IsLeverRelayRaised == rd.RouteState?.IsLeverRelayRaised &&
+                        o.RouteState?.IsSignalControlRaised == rd.RouteState?.IsSignalControlRaised))
+                    .ToList(),
+
+                // CenterControlStates: 更新されたデータのみを残す
+                CenterControlStates = other.CenterControlStates
+                    .Where(kvp => !this.CenterControlStates.ContainsKey(kvp.Key) || this.CenterControlStates[kvp.Key] != kvp.Value)
+                    .ToDictionary(kvp => kvp.Key, kvp => kvp.Value),
+
+                // Retsubans: 更新されたデータのみを残す
+                Retsubans = other.Retsubans
+                    .Where(r => !this.Retsubans.Any(o => o.Name == r.Name && o.Retsuban == r.Retsuban))
+                    .ToList(),
+
+                // Lamps: 更新されたデータのみを残す
+                Lamps = other.Lamps
+                    .Where(kvp => !this.Lamps.ContainsKey(kvp.Key) || this.Lamps[kvp.Key] != kvp.Value)
+                    .ToDictionary(kvp => kvp.Key, kvp => kvp.Value),
+            };
+        }
+
+        public bool HasData()
+        {
+            return (TrackCircuits != null && TrackCircuits.Any()) ||
+                   (RouteDatas != null && RouteDatas.Any()) ||
+                   (CenterControlStates != null && CenterControlStates.Any()) ||
+                   (Retsubans != null && Retsubans.Any()) ||
+                   (Lamps != null && Lamps.Any());
         }
     }
 

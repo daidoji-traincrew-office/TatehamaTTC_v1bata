@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace TatehamaTTC_v1bata.Manager
 {
     using OpenIddict.Client;
+    using System.Diagnostics;
     using TatehamaTTC_v1bata.Model;
     using TatehamaTTC_v1bata.Network;
     internal class TTCManager
@@ -16,6 +17,7 @@ namespace TatehamaTTC_v1bata.Manager
         internal TTCManager(OpenIddictClientService service)
         {
             Network = new Network(service);
+            Network.DataFromServerReceived += DataFromServerReceived;
         }
 
         /// <summary>
@@ -38,8 +40,12 @@ namespace TatehamaTTC_v1bata.Manager
         /// 定時データ受信処理
         /// </summary>
         /// <param name="dataFromServer"></param>
-        internal void DataFromServerReceived(DataFromServer dataFromServer)
+        internal void DataFromServerReceived(DataFromServer dataFromServer, DataFromServer difference)
         {
+            if (difference.HasData())
+            {
+                Debug.WriteLine(difference);
+            }
         }
     }
 }
