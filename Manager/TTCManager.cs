@@ -10,14 +10,21 @@ namespace TatehamaTTC_v1bata.Manager
     using System.Diagnostics;
     using TatehamaTTC_v1bata.Model.ServerData;
     using TatehamaTTC_v1bata.Network;
+    using TatehamaTTC_v1bata.Service.CTC;
+    using TatehamaTTC_v1bata.Service.tsv;
+
     internal class TTCManager
     {
         Network Network;
+        TsvService TsvService;
+        PointTestService PointTestService;
 
         internal TTCManager(OpenIddictClientService service)
         {
             Network = new Network(service);
             Network.DataFromServerReceived += DataFromServerReceived;
+            TsvService = new TsvService();
+            PointTestService = new PointTestService(Network, TsvService);
         }
 
         /// <summary>
@@ -42,10 +49,20 @@ namespace TatehamaTTC_v1bata.Manager
         /// <param name="dataFromServer"></param>
         internal void DataFromServerReceived(DataFromServer dataFromServer, DataFromServer difference)
         {
-            if (difference.HasData())
-            {
-                Debug.WriteLine(difference);
-            }
+            //if (difference.HasData())
+            //{
+            //    Debug.WriteLine(difference);
+            //}
+        }
+
+        internal async Task RunAllPointTestsAsync()
+        {
+            await PointTestService.RunAllStationsPointTest();
+        }
+
+        internal async Task RunStationPointTestsAsync(string staid)
+        {
+            await PointTestService.RunStationPointTest(staid);
         }
     }
 }

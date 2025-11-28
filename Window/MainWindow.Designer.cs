@@ -31,6 +31,9 @@
             textBox1 = new TextBox();
             button1 = new Button();
             button2 = new Button();
+            textBox2 = new TextBox();
+            button3 = new Button();
+            button4 = new Button();
             SuspendLayout();
             // 
             // textBox1
@@ -60,13 +63,44 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(12, 58);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(86, 23);
+            textBox2.TabIndex = 0;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(104, 58);
+            button3.Name = "button3";
+            button3.Size = new Size(62, 23);
+            button3.TabIndex = 1;
+            button3.Text = "試験";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
+            // button4
+            // 
+            button4.BackColor = Color.LightCoral;
+            button4.Location = new Point(172, 58);
+            button4.Name = "button4";
+            button4.Size = new Size(62, 23);
+            button4.TabIndex = 1;
+            button4.Text = "全試験";
+            button4.UseVisualStyleBackColor = false;
+            button4.Click += button4_Click;
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(472, 284);
+            Controls.Add(button4);
             Controls.Add(button2);
+            Controls.Add(button3);
             Controls.Add(button1);
+            Controls.Add(textBox2);
             Controls.Add(textBox1);
             Name = "MainWindow";
             Text = "MainWindow";
@@ -79,5 +113,8 @@
         private TextBox textBox1;
         private Button button1;
         private Button button2;
+        private TextBox textBox2;
+        private Button button3;
+        private Button button4;
     }
 }

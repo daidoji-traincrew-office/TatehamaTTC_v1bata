@@ -51,5 +51,15 @@ namespace TatehamaTTC_v1bata.Window
         {
             TTCManager.SetCtcRelay(textBox1.Text, RaiseDrop.Drop);
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Task task = TTCManager.RunStationPointTestsAsync(textBox2.Text);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Task task = TTCManager.RunAllPointTestsAsync();
+        }
     }
 }

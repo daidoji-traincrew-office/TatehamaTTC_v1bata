@@ -252,7 +252,13 @@ namespace TatehamaTTC_v1bata.Model.ServerData
 
     public enum RaiseDrop
     {
+        /// <summary>
+        /// 扛上
+        /// </summary>
         Drop,
+        /// <summary>
+        /// 落下
+        /// </summary>
         Raise
     }
 }

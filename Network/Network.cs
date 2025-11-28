@@ -32,7 +32,7 @@ namespace TatehamaTTC_v1bata.Network
         /// <summary>
         /// サーバーから来たデータ
         /// </summary>
-        private DataFromServer DataFromServer;
+        public DataFromServer DataFromServer;
 
         public event Action<DataFromServer, DataFromServer>? DataFromServerReceived;
 
@@ -438,7 +438,12 @@ namespace TatehamaTTC_v1bata.Network
             DataFromServerReceived?.Invoke(DataFromServer, difference);
         }
 
-
+        /// <summary>
+        /// 進路を扛上または落下させる
+        /// </summary>
+        /// <param name="TcName">進路名</param>
+        /// <param name="raiseDrop">扛上・落下</param>
+        /// <returns></returns>
         public async Task SetCtcRelay(string TcName, RaiseDrop raiseDrop)
         {
             RouteData newRouteData = await _connection?.InvokeAsync<RouteData>("SetCtcRelay", TcName, raiseDrop);
