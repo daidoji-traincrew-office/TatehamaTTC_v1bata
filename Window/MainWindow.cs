@@ -61,5 +61,10 @@ namespace TatehamaTTC_v1bata.Window
         {
             Task task = TTCManager.RunAllPointTestsAsync();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            TTCManager.LoadPointTestTsvFile();
+        }
     }
 }

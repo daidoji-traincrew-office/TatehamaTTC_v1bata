@@ -32,6 +32,7 @@ namespace TatehamaTTC_v1bata.Service.CTC
             try
             {
                 var tsvdata = TsvService.ReadAsString(tsvFilePath);
+                PointTestSequenceData = new PointTestSequenceData();
                 PointTestSequenceData.InitializeFromTsv(tsvdata);
             }
             catch (FileNotFoundException ex)

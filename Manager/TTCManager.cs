@@ -64,5 +64,10 @@ namespace TatehamaTTC_v1bata.Manager
         {
             await PointTestService.RunStationPointTest(staid);
         }
+
+        internal void LoadPointTestTsvFile()
+        {
+            PointTestService.LoadTsvFile();
+        }
     }
 }

@@ -34,6 +34,7 @@
             textBox2 = new TextBox();
             button3 = new Button();
             button4 = new Button();
+            button5 = new Button();
             SuspendLayout();
             // 
             // textBox1
@@ -91,11 +92,22 @@
             button4.UseVisualStyleBackColor = false;
             button4.Click += button4_Click;
             // 
+            // button5
+            // 
+            button5.Location = new Point(240, 58);
+            button5.Name = "button5";
+            button5.Size = new Size(62, 23);
+            button5.TabIndex = 2;
+            button5.Text = "再読込";
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(472, 284);
+            Controls.Add(button5);
             Controls.Add(button4);
             Controls.Add(button2);
             Controls.Add(button3);
@@ -116,5 +128,6 @@
         private TextBox textBox2;
         private Button button3;
         private Button button4;
+        private Button button5;
     }
 }
