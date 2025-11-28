@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TatehamaTTC_v1bata.Manager;
-using TatehamaTTC_v1bata.Model;
+using TatehamaTTC_v1bata.Model.ServerData;
 
 namespace TatehamaTTC_v1bata.Window
 {

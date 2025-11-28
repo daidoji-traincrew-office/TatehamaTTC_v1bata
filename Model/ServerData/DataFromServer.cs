@@ -8,7 +8,7 @@ using System.Windows.Documents;
 using System.Xml.Linq;
 using static System.Windows.Forms.AxHost;
 
-namespace TatehamaTTC_v1bata.Model
+namespace TatehamaTTC_v1bata.Model.ServerData
 {
     /// <summary>
     /// 受信データクラス
@@ -101,12 +101,12 @@ namespace TatehamaTTC_v1bata.Model
             {
                 // TrackCircuits: 更新されたデータのみを残す
                 TrackCircuits = other.TrackCircuits
-                    .Where(tc => !this.TrackCircuits.Any(o => o.Name == tc.Name && o.Equals(tc)))
+                    .Where(tc => !TrackCircuits.Any(o => o.Name == tc.Name && o.Equals(tc)))
                     .ToList(),
 
                 // RouteDatas: 更新されたデータのみを残す
                 RouteDatas = other.RouteDatas
-                    .Where(rd => !this.RouteDatas.Any(o =>
+                    .Where(rd => !RouteDatas.Any(o =>
                         o.TcName == rd.TcName &&
                         o.RouteState?.IsCtcRelayRaised == rd.RouteState?.IsCtcRelayRaised &&
                         o.RouteState?.IsLeverRelayRaised == rd.RouteState?.IsLeverRelayRaised &&
@@ -115,28 +115,28 @@ namespace TatehamaTTC_v1bata.Model
 
                 // CenterControlStates: 更新されたデータのみを残す
                 CenterControlStates = other.CenterControlStates
-                    .Where(kvp => !this.CenterControlStates.ContainsKey(kvp.Key) || this.CenterControlStates[kvp.Key] != kvp.Value)
+                    .Where(kvp => !CenterControlStates.ContainsKey(kvp.Key) || CenterControlStates[kvp.Key] != kvp.Value)
                     .ToDictionary(kvp => kvp.Key, kvp => kvp.Value),
 
                 // Retsubans: 更新されたデータのみを残す
                 Retsubans = other.Retsubans
-                    .Where(r => !this.Retsubans.Any(o => o.Name == r.Name && o.Retsuban == r.Retsuban))
+                    .Where(r => !Retsubans.Any(o => o.Name == r.Name && o.Retsuban == r.Retsuban))
                     .ToList(),
 
                 // Lamps: 更新されたデータのみを残す
                 Lamps = other.Lamps
-                    .Where(kvp => !this.Lamps.ContainsKey(kvp.Key) || this.Lamps[kvp.Key] != kvp.Value)
+                    .Where(kvp => !Lamps.ContainsKey(kvp.Key) || Lamps[kvp.Key] != kvp.Value)
                     .ToDictionary(kvp => kvp.Key, kvp => kvp.Value),
             };
         }
 
         public bool HasData()
         {
-            return (TrackCircuits != null && TrackCircuits.Any()) ||
-                   (RouteDatas != null && RouteDatas.Any()) ||
-                   (CenterControlStates != null && CenterControlStates.Any()) ||
-                   (Retsubans != null && Retsubans.Any()) ||
-                   (Lamps != null && Lamps.Any());
+            return TrackCircuits != null && TrackCircuits.Any() ||
+                   RouteDatas != null && RouteDatas.Any() ||
+                   CenterControlStates != null && CenterControlStates.Any() ||
+                   Retsubans != null && Retsubans.Any() ||
+                   Lamps != null && Lamps.Any();
         }
     }
 

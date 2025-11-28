@@ -8,7 +8,7 @@ using System.Net.Http.Headers;
 using System.Net.WebSockets;
 using System.Text.RegularExpressions;
 using System.Threading;
-using TatehamaTTC_v1bata.Model;
+using TatehamaTTC_v1bata.Model.ServerData;
 
 namespace TatehamaTTC_v1bata.Network
 {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TatehamaTTC_v1bata.Model
+namespace TatehamaTTC_v1bata.Model.ServerData
 {
     public class TrackCircuitData : IEquatable<TrackCircuitData>
     {

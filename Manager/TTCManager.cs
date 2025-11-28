@@ -8,7 +8,7 @@ namespace TatehamaTTC_v1bata.Manager
 {
     using OpenIddict.Client;
     using System.Diagnostics;
-    using TatehamaTTC_v1bata.Model;
+    using TatehamaTTC_v1bata.Model.ServerData;
     using TatehamaTTC_v1bata.Network;
     internal class TTCManager
     {
