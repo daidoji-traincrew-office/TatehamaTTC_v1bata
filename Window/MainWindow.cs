@@ -17,12 +17,16 @@ namespace TatehamaTTC_v1bata.Window
     public partial class MainWindow : Form, IWinFormsShell
     {
         TTCManager TTCManager;
+        List<string> HikipperList;
+
         public MainWindow(OpenIddictClientService service)
         {
             InitializeComponent();
             this.Load += MainForm_Load;
             TTCManager = new TTCManager(service);
             Application.ApplicationExit += new EventHandler(Application_ApplicationExit);
+
+
         }
         /// <summary>
         /// MainForm_Loadイベント
@@ -65,6 +69,38 @@ namespace TatehamaTTC_v1bata.Window
         private void button5_Click(object sender, EventArgs e)
         {
             TTCManager.LoadPointTestTsvFile();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            HikipperList = [
+                "TH75_1RE",
+                "TH75_5RB",
+                "TH75_8R",
+                "TH75_9LC",
+                "TH75_6L",
+                "TH75_2L",
+                "TH71_1RB",
+                "TH71_5R",
+                "TH71_6LC",
+                "TH71_2L",
+                "TH70_1R",
+                "TH70_3R",
+                "TH70_5L",
+                "TH70_2L",
+            ];
+            HikipperList.ForEach(name =>
+            {
+                TTCManager.SetCtcRelay(name, RaiseDrop.Raise);
+            });
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            HikipperList.ForEach(name =>
+            {
+                TTCManager.SetCtcRelay(name, RaiseDrop.Drop);
+            });
         }
     }
 }

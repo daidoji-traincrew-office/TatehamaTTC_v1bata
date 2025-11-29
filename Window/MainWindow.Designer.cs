@@ -35,6 +35,8 @@
             button3 = new Button();
             button4 = new Button();
             button5 = new Button();
+            button6 = new Button();
+            button7 = new Button();
             SuspendLayout();
             // 
             // textBox1
@@ -66,14 +68,14 @@
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(12, 58);
+            textBox2.Location = new Point(12, 70);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(86, 23);
+            textBox2.Size = new Size(135, 23);
             textBox2.TabIndex = 0;
             // 
             // button3
             // 
-            button3.Location = new Point(104, 58);
+            button3.Location = new Point(153, 70);
             button3.Name = "button3";
             button3.Size = new Size(62, 23);
             button3.TabIndex = 1;
@@ -84,7 +86,7 @@
             // button4
             // 
             button4.BackColor = Color.LightCoral;
-            button4.Location = new Point(172, 58);
+            button4.Location = new Point(221, 70);
             button4.Name = "button4";
             button4.Size = new Size(62, 23);
             button4.TabIndex = 1;
@@ -94,7 +96,7 @@
             // 
             // button5
             // 
-            button5.Location = new Point(240, 58);
+            button5.Location = new Point(289, 70);
             button5.Name = "button5";
             button5.Size = new Size(62, 23);
             button5.TabIndex = 2;
@@ -102,11 +104,33 @@
             button5.UseVisualStyleBackColor = true;
             button5.Click += button5_Click;
             // 
+            // button6
+            // 
+            button6.Location = new Point(289, 41);
+            button6.Name = "button6";
+            button6.Size = new Size(62, 23);
+            button6.TabIndex = 3;
+            button6.Text = "引扛上";
+            button6.UseVisualStyleBackColor = true;
+            button6.Click += button6_Click;
+            // 
+            // button7
+            // 
+            button7.Location = new Point(357, 41);
+            button7.Name = "button7";
+            button7.Size = new Size(62, 23);
+            button7.TabIndex = 4;
+            button7.Text = "引落下";
+            button7.UseVisualStyleBackColor = true;
+            button7.Click += button7_Click;
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(472, 284);
+            Controls.Add(button7);
+            Controls.Add(button6);
             Controls.Add(button5);
             Controls.Add(button4);
             Controls.Add(button2);
@@ -129,5 +153,7 @@
         private Button button3;
         private Button button4;
         private Button button5;
+        private Button button6;
+        private Button button7;
     }
 }
